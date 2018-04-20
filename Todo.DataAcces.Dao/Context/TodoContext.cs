@@ -11,6 +11,5 @@ namespace Todo.DataAcces.Dao.Context
     public class TodoContext : DbContext
     {
         public DbSet<Tarea> Tareas { get; set; }
-
     }
 }
