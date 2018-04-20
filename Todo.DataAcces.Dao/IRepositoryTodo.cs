@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Todo.Autofac.Configuration
+namespace Todo.DataAcces.Dao
 {
-    public class Class1
+    public interface IRepositoryTodo<T> : ICreateDao<T>, IReadDao<T>, IUpdateDao<T>, IDeleteDao<T>
     {
     }
 }

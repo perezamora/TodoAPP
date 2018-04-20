@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Todo.DataAcces.Dao
 {
-    public class Class1
+    public interface IReadDao<T>
     {
+        T Select(T guid);
+        T SelectById(T id);
+        List<T> GetAll();
     }
 }

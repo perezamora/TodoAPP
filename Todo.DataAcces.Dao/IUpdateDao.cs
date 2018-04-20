@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Todo.Business.Logic
+namespace Todo.DataAcces.Dao
 {
-    public class Class1
+    public interface IUpdateDao<T>
     {
+        T Update(T id);
     }
 }

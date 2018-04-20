@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Todo.Common.Logic
+namespace Todo.DataAcces.Dao
 {
-    public class Class1
+    public interface ICreateDao<T>
     {
+        T insert(T item);
     }
 }
