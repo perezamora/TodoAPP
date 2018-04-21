@@ -8,6 +8,6 @@ namespace Todo.DataAcces.Dao
 {
     public interface ICreateDao<T>
     {
-        T insert(T item);
+        T Insert(T item);
     }
 }

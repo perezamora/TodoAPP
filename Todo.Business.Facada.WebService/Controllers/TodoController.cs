@@ -53,7 +53,7 @@ namespace Todo.Business.Facada.WebService.Controllers
             }
         }
 
-        [HttpPut()]
+        [HttpPost()]
         public IHttpActionResult AddTodo(Tarea todo)
         {
             try
@@ -82,7 +82,7 @@ namespace Todo.Business.Facada.WebService.Controllers
 
         }
 
-        [HttpPost()]
+        [HttpPut()]
         public IHttpActionResult UpdateTodo(int id, Tarea todo)
         {
             try

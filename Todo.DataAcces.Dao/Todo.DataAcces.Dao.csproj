@@ -38,6 +38,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -50,16 +51,28 @@
     <Compile Include="Context\TodoContext.cs" />
     <Compile Include="Errors\TodoDaoException.cs" />
     <Compile Include="ICreateDao.cs" />
+    <Compile Include="IDatabase.cs" />
     <Compile Include="IRepositoryTodo.cs" />
     <Compile Include="IDeleteDao.cs" />
     <Compile Include="IReadDao.cs" />
     <Compile Include="IUpdateDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RepositoryTodo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="SqlServerDatabase.cs" />
+    <Compile Include="TodoBLException.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Todo.Common.Logic\Todo.Common.Logic.csproj">
