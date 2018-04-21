@@ -8,6 +8,6 @@ namespace Todo.DataAcces.Dao
 {
     public interface IUpdateDao<T>
     {
-        T Update(T id);
+        T Update(int id, T item);
     }
 }

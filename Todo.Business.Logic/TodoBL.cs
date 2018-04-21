@@ -79,7 +79,16 @@ namespace Todo.Business.Logic
 
         public Tarea Update(int id, Tarea todo)
         {
-            throw new NotImplementedException();
+            tareaRepository = new RepositoryTodo<Tarea>();
+            try
+            {
+                return tareaRepository.Update(id, todo);
+            }
+            catch (TodoDaoException e)
+            {
+                log.Error(e.Message + e.StackTrace);
+                throw new TodoBLException("Error metodo Update ", e.InnerException);
+            }
         }
     }
 }

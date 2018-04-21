@@ -23,7 +23,7 @@ namespace Todo.DataAcces.Dao
         {
             _log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
             database = new SqlServerDatabase();
-       
+
             try
             {
                 using (IDbConnection connection = database.CreateOpenConnection())
@@ -63,7 +63,7 @@ namespace Todo.DataAcces.Dao
                         using (IDataReader reader = command.ExecuteReader())
                         {
                             var listTodos = new List<T>();
-                            
+
                             while (reader.Read())
                             {
                                 var tarea = new Tarea();
@@ -104,7 +104,7 @@ namespace Todo.DataAcces.Dao
             {
                 using (IDbConnection connection = database.CreateOpenConnection())
                 {
-                    
+
                     var sqlCommand = "INSERT INTO TASKS ([Guid],[Title],[Comment],[DateCreate],[DateFinal],[DateUpdate]) " +
                         "VALUES (@Guid, @Title, @Comment, @DateCreate, @DateFinal, @DateUpdate)";
                     using (IDbCommand command = database.CreateCommand(sqlCommand, connection))
@@ -198,9 +198,67 @@ namespace Todo.DataAcces.Dao
             }
         }
 
-        public T Update(T id)
+        public T Update(int id, T item)
         {
-            throw new NotImplementedException();
+            _log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+            database = new SqlServerDatabase();
+            var todo = item as Tarea;
+
+            try
+            {
+                var tareaUpdate = SelectById(id) as Tarea;
+                tareaUpdate.Title = todo.Title;
+                tareaUpdate.Comment = todo.Comment;
+                tareaUpdate.DateUpdate = DateTime.Now;
+
+                using (IDbConnection connection = database.CreateOpenConnection())
+                {
+                    var sqlCommand = "UPDATE TASKS SET Title = @Title, Comment = @Comment , DateUpdate = @DateUpdate" +
+                        " WHERE id = @IDTarea";
+                    using (IDbCommand command = database.CreateCommand(sqlCommand, connection))
+                    {
+                        database.AddParameter(command, "@IDTarea", id);
+                        database.AddParameter(command, "@Title", tareaUpdate.Title);
+                        database.AddParameter(command, "@Comment", tareaUpdate.Comment);
+                        database.AddParameter(command, "@DateUpdate", tareaUpdate.DateUpdate);
+                        command.ExecuteNonQuery();
+                    }
+
+                    sqlCommand = "SELECT * FROM TASKS WHERE Id = @IDTarea";
+                    using (IDbCommand command = database.CreateCommand(sqlCommand, connection))
+                    {
+                        database.AddParameter(command, "@IDTarea", id);
+
+                        using (IDataReader reader = command.ExecuteReader())
+                        {
+                            var tarea = new Tarea();
+                            while (reader.Read())
+                            {
+                                tarea.Id = Convert.ToInt32(reader["Id"].ToString());
+                                tarea.Guid = reader["Guid"].ToString();
+                                tarea.Title = reader["Title"].ToString();
+                                tarea.Comment = reader["Comment"].ToString();
+                                tarea.DateCreate = Convert.ToDateTime(reader["DateCreate"].ToString());
+                                tarea.DateFinal = Convert.ToDateTime(reader["DateFinal"].ToString());
+                                tarea.DateUpdate = Convert.ToDateTime(reader["DateUpdate"].ToString());
+                            }
+
+                            return (T)Convert.ChangeType(tarea, typeof(T));
+                        }
+                    }
+                }
+
+            }
+            catch (SqlException e)
+            {
+                _log.Error(e.Message + e.StackTrace);
+                throw new TodoDaoException("Error Update by id tarea: ", e.InnerException);
+            }
+            catch (Exception e)
+            {
+                _log.Error(e.Message + e.StackTrace);
+                throw new TodoDaoException("Error Update by id tarea: ", e.InnerException);
+            }
         }
     }
 }
