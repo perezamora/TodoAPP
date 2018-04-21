@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Todo.Common.Logic.Logger
 {
-    public class ALog4netLogger
+    public class ALog4netLogger : ILogger
     {
         private readonly ILog _log;
 

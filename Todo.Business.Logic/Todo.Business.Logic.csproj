@@ -48,11 +48,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Errors\TodoBLException.cs" />
+    <Compile Include="IServiceTodoBL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TodoBL.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="TodoBL.cd" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Todo.Common.Logic\Todo.Common.Logic.csproj">
