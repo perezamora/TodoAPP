@@ -34,7 +34,7 @@ namespace Todo.Business.Facada.WebService.Controllers
             catch (TodoBLException ex)
             {
                 _log.Debug(ex.InnerException);
-                throw;
+                return InternalServerError();
             }
         }
 

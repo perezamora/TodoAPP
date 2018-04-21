@@ -8,7 +8,7 @@ namespace Todo.DataAcces.Dao
 {
     public interface IReadDao<T>
     {
-        T SelectById(T id);
+        T SelectById(int id);
         List<T> GetAll();
     }
 }

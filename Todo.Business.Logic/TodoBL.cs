@@ -56,7 +56,16 @@ namespace Todo.Business.Logic
 
         public Tarea GetById(int id)
         {
-            throw new NotImplementedException();
+            tareaRepository = new RepositoryTodo<Tarea>();
+            try
+            {
+                return tareaRepository.SelectById(id);
+            }
+            catch (TodoDaoException e)
+            {
+                log.Error(e.Message + e.StackTrace);
+                throw new TodoBLException("Error metodo GetById ", e.InnerException);
+            }
         }
 
         public Tarea Update(int id, Tarea todo)

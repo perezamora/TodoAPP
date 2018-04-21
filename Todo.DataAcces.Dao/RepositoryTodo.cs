@@ -76,7 +76,28 @@ namespace Todo.DataAcces.Dao
                         database.AddParameter(command, "@DateUpdate", todo.DateUpdate);
                         command.ExecuteNonQuery();
                     }
-                    return (T)Convert.ChangeType(todo, typeof(T));
+
+                    sqlCommand = "SELECT * FROM TASKS WHERE Guid = @Guid";
+                    using (IDbCommand command = database.CreateCommand(sqlCommand, connection))
+                    {
+                        database.AddParameter(command, "@Guid", todo.Guid);
+                        using (IDataReader reader = command.ExecuteReader())
+                        {
+                            var tarea = new Tarea();
+                            while (reader.Read())
+                            {
+                                tarea.Id = Convert.ToInt32(reader["Id"].ToString());
+                                tarea.Guid = reader["Guid"].ToString();
+                                tarea.Title = reader["Title"].ToString();
+                                tarea.Comment = reader["Comment"].ToString();
+                                tarea.DateCreate = Convert.ToDateTime(reader["DateCreate"].ToString());
+                                tarea.DateFinal = Convert.ToDateTime(reader["DateFinal"].ToString());
+                                tarea.DateUpdate = Convert.ToDateTime(reader["DateUpdate"].ToString());
+                            }
+
+                            return (T)Convert.ChangeType(tarea, typeof(T));
+                        }
+                    }
                 }
             }
             catch (SqlException e)
@@ -91,9 +112,49 @@ namespace Todo.DataAcces.Dao
             }
 
         }
-        public T SelectById(T id)
+        public T SelectById(int id)
         {
-            throw new NotImplementedException();
+            _log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+            database = new SqlServerDatabase();
+
+            try
+            {
+                using (IDbConnection connection = database.CreateOpenConnection())
+                {
+                    var sqlCommand = "SELECT * FROM TASKS WHERE Id = @IDTarea";
+                    using (IDbCommand command = database.CreateCommand(sqlCommand, connection))
+                    {
+                        database.AddParameter(command, "@IDTarea", id);
+
+                        using (IDataReader reader = command.ExecuteReader())
+                        {
+                            var tarea = new Tarea();
+                            while (reader.Read())
+                            {
+                                tarea.Id = Convert.ToInt32(reader["Id"].ToString());
+                                tarea.Guid = reader["Guid"].ToString();
+                                tarea.Title = reader["Title"].ToString();
+                                tarea.Comment = reader["Comment"].ToString();
+                                tarea.DateCreate = Convert.ToDateTime(reader["DateCreate"].ToString());
+                                tarea.DateFinal = Convert.ToDateTime(reader["DateFinal"].ToString());
+                                tarea.DateUpdate = Convert.ToDateTime(reader["DateUpdate"].ToString());
+                            }
+
+                            return (T)Convert.ChangeType(tarea, typeof(T));
+                        }
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+                _log.Error(e.Message + e.StackTrace);
+                throw new TodoDaoException("Error select by id tarea: ", e.InnerException);
+            }
+            catch (Exception e)
+            {
+                _log.Error(e.Message + e.StackTrace);
+                throw new TodoDaoException("Error select by id tarea: ", e.InnerException);
+            }
         }
 
         public T Update(T id)
