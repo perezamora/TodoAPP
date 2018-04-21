@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Todo.Common.Logic.Logger;
 using Todo.Common.Logic.Util;
+using Todo.DataAcces.Dao.Errors;
 
 namespace Todo.DataAcces.Dao
 {
@@ -32,12 +33,12 @@ namespace Todo.DataAcces.Dao
             catch (SqlException e)
             {
                 log.Error(e.Message + e.StackTrace);
-                throw new TodoBLException("Error IDbConnection ", e.InnerException);
+                throw new TodoDaoException(Resources.logmessages.errordbaconnection, e.InnerException);
             }
             catch (Exception e)
             {
                 log.Error(e.Message + e.StackTrace);
-                throw new TodoBLException("Error IDbConnection ", e.InnerException);
+                throw new TodoDaoException(Resources.logmessages.errordbaconnection, e.InnerException);
             }
 
         }
@@ -56,12 +57,12 @@ namespace Todo.DataAcces.Dao
             catch (SqlException e)
             {
                 log.Error(e.Message + e.StackTrace);
-                throw new TodoBLException("Error CreateCommand ", e.InnerException);
+                throw new TodoDaoException(Resources.logmessages.errordbacommand, e.InnerException);
             }
             catch (Exception e)
             {
                 log.Error(e.Message + e.StackTrace);
-                throw new TodoBLException("Error CreateCommand ", e.InnerException);
+                throw new TodoDaoException(Resources.logmessages.errordbacommand, e.InnerException);
             }
         }
 

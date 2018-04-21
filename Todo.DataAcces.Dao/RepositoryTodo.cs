@@ -19,6 +19,7 @@ namespace Todo.DataAcces.Dao
         private readonly ILogger _log = ConfigUtil.CreateInstanceClassLog(MethodBase.GetCurrentMethod().DeclaringType);
         private IDatabase database;
 
+        #region Metodos
         public int Delete(int id)
         {
             _log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
@@ -39,12 +40,12 @@ namespace Todo.DataAcces.Dao
             catch (SqlException e)
             {
                 _log.Error(e.Message + e.StackTrace);
-                throw new TodoDaoException("Error delete tarea: ", e.InnerException);
+                throw new TodoDaoException(Resources.logmessages.errordeleteDao, e.InnerException);
             }
             catch (Exception e)
             {
                 _log.Error(e.Message + e.StackTrace);
-                throw new TodoDaoException("Error delete tarea: ", e.InnerException);
+                throw new TodoDaoException(Resources.logmessages.errordeleteDao, e.InnerException);
             }
         }
 
@@ -85,12 +86,12 @@ namespace Todo.DataAcces.Dao
             catch (SqlException e)
             {
                 _log.Error(e.Message + e.StackTrace);
-                throw new TodoDaoException("Error select by all tarea: ", e.InnerException);
+                throw new TodoDaoException(Resources.logmessages.errorgetallDao, e.InnerException);
             }
             catch (Exception e)
             {
                 _log.Error(e.Message + e.StackTrace);
-                throw new TodoDaoException("Error select by all tarea: ", e.InnerException);
+                throw new TodoDaoException(Resources.logmessages.errorgetallDao, e.InnerException);
             }
         }
 
@@ -144,15 +145,16 @@ namespace Todo.DataAcces.Dao
             catch (SqlException e)
             {
                 _log.Error(e.Message + e.StackTrace);
-                throw new TodoDaoException("Error insert tarea: ", e.InnerException);
+                throw new TodoDaoException(Resources.logmessages.errorinsertDao, e.InnerException);
             }
             catch (Exception e)
             {
                 _log.Error(e.Message + e.StackTrace);
-                throw new TodoDaoException("Error insert tarea: ", e.InnerException);
+                throw new TodoDaoException(Resources.logmessages.errorinsertDao, e.InnerException);
             }
 
         }
+
         public T SelectById(int id)
         {
             _log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
@@ -189,12 +191,12 @@ namespace Todo.DataAcces.Dao
             catch (SqlException e)
             {
                 _log.Error(e.Message + e.StackTrace);
-                throw new TodoDaoException("Error select by id tarea: ", e.InnerException);
+                throw new TodoDaoException(Resources.logmessages.errorselectDao, e.InnerException);
             }
             catch (Exception e)
             {
                 _log.Error(e.Message + e.StackTrace);
-                throw new TodoDaoException("Error select by id tarea: ", e.InnerException);
+                throw new TodoDaoException(Resources.logmessages.errorselectDao, e.InnerException);
             }
         }
 
@@ -252,13 +254,14 @@ namespace Todo.DataAcces.Dao
             catch (SqlException e)
             {
                 _log.Error(e.Message + e.StackTrace);
-                throw new TodoDaoException("Error Update by id tarea: ", e.InnerException);
+                throw new TodoDaoException(Resources.logmessages.errorupdateDao, e.InnerException);
             }
             catch (Exception e)
             {
                 _log.Error(e.Message + e.StackTrace);
-                throw new TodoDaoException("Error Update by id tarea: ", e.InnerException);
+                throw new TodoDaoException(Resources.logmessages.errorupdateDao, e.InnerException);
             }
         }
+        #endregion
     }
 }

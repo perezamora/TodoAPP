@@ -31,7 +31,7 @@ namespace Todo.Business.Logic
             catch (TodoDaoException e)
             {
                 log.Error(e.Message + e.StackTrace);
-                throw new TodoBLException("Error metodo Add ", e.InnerException);
+                throw new TodoBLException(Resource.logmessages.erroradd, e.InnerException);
             }
         }
 
@@ -45,7 +45,7 @@ namespace Todo.Business.Logic
             catch (TodoDaoException e)
             {
                 log.Error(e.Message + e.StackTrace);
-                throw new TodoBLException("Error metodo Add ", e.InnerException);
+                throw new TodoBLException(Resource.logmessages.errordelete, e.InnerException);
             }
         }
 
@@ -59,7 +59,7 @@ namespace Todo.Business.Logic
             catch (TodoDaoException e)
             {
                 log.Error(e.Message + e.StackTrace);
-                throw new TodoBLException("Error metodo GetAll ", e.InnerException);
+                throw new TodoBLException(Resource.logmessages.errorgetall, e.InnerException);
             }
         }
 
@@ -73,7 +73,7 @@ namespace Todo.Business.Logic
             catch (TodoDaoException e)
             {
                 log.Error(e.Message + e.StackTrace);
-                throw new TodoBLException("Error metodo GetById ", e.InnerException);
+                throw new TodoBLException(Resource.logmessages.errorgetbyid, e.InnerException);
             }
         }
 
@@ -87,7 +87,7 @@ namespace Todo.Business.Logic
             catch (TodoDaoException e)
             {
                 log.Error(e.Message + e.StackTrace);
-                throw new TodoBLException("Error metodo Update ", e.InnerException);
+                throw new TodoBLException(Resource.logmessages.errorupdate, e.InnerException);
             }
         }
     }
