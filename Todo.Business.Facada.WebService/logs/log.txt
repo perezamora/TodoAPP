@@ -173,3 +173,7 @@
 2018-04-21 11:33:15,477 [6] DEBUG Todo.DataAcces.Dao.SqlServerDatabase CreateOpenConnection
 2018-04-21 11:33:15,479 [6] DEBUG Todo.DataAcces.Dao.SqlServerDatabase Data Source=AM-BCN-POR-417;Initial Catalog=TodoTaskDB;User ID=sa;Password=Pa$$w0rd
 2018-04-21 11:33:15,482 [6] DEBUG Todo.DataAcces.Dao.SqlServerDatabase CreateCommand
+2018-04-21 11:46:27,830 [5] DEBUG Todo.DataAcces.Dao.RepositoryTodo`1 GetAll
+2018-04-21 11:46:27,839 [5] DEBUG Todo.DataAcces.Dao.SqlServerDatabase CreateOpenConnection
+2018-04-21 11:46:27,854 [5] DEBUG Todo.DataAcces.Dao.SqlServerDatabase Data Source=AM-BCN-POR-417;Initial Catalog=TodoTaskDB;User ID=sa;Password=Pa$$w0rd
+2018-04-21 11:46:27,870 [5] DEBUG Todo.DataAcces.Dao.SqlServerDatabase CreateCommand

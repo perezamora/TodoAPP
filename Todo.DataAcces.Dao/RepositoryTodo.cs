@@ -50,7 +50,48 @@ namespace Todo.DataAcces.Dao
 
         public List<T> GetAll()
         {
-            throw new NotImplementedException();
+            _log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+            database = new SqlServerDatabase();
+
+            try
+            {
+                using (IDbConnection connection = database.CreateOpenConnection())
+                {
+                    var sqlCommand = "SELECT * FROM TASKS";
+                    using (IDbCommand command = database.CreateCommand(sqlCommand, connection))
+                    {
+                        using (IDataReader reader = command.ExecuteReader())
+                        {
+                            var listTodos = new List<T>();
+                            
+                            while (reader.Read())
+                            {
+                                var tarea = new Tarea();
+                                tarea.Id = Convert.ToInt32(reader["Id"].ToString());
+                                tarea.Guid = reader["Guid"].ToString();
+                                tarea.Title = reader["Title"].ToString();
+                                tarea.Comment = reader["Comment"].ToString();
+                                tarea.DateCreate = Convert.ToDateTime(reader["DateCreate"].ToString());
+                                tarea.DateFinal = Convert.ToDateTime(reader["DateFinal"].ToString());
+                                tarea.DateUpdate = Convert.ToDateTime(reader["DateUpdate"].ToString());
+                                listTodos.Add((T)Convert.ChangeType(tarea, typeof(T)));
+                            }
+
+                            return listTodos;
+                        }
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+                _log.Error(e.Message + e.StackTrace);
+                throw new TodoDaoException("Error select by all tarea: ", e.InnerException);
+            }
+            catch (Exception e)
+            {
+                _log.Error(e.Message + e.StackTrace);
+                throw new TodoDaoException("Error select by all tarea: ", e.InnerException);
+            }
         }
 
         public T Insert(T item)

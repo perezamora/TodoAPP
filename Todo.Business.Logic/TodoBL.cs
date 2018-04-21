@@ -51,7 +51,16 @@ namespace Todo.Business.Logic
 
         public List<Tarea> GetAll()
         {
-            throw new NotImplementedException();
+            tareaRepository = new RepositoryTodo<Tarea>();
+            try
+            {
+                return tareaRepository.GetAll();
+            }
+            catch (TodoDaoException e)
+            {
+                log.Error(e.Message + e.StackTrace);
+                throw new TodoBLException("Error metodo GetAll ", e.InnerException);
+            }
         }
 
         public Tarea GetById(int id)
