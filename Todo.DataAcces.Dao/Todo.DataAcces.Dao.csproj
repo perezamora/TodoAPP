@@ -63,8 +63,12 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Resources\logmessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>logmessages.resx</DependentUpon>
+    </Compile>
     <Compile Include="SqlServerDatabase.cs" />
-    <Compile Include="TodoBLException.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -79,6 +83,12 @@
       <Project>{8bac5146-6ae6-4bd2-a3b1-2c57e2312a32}</Project>
       <Name>Todo.Common.Logic</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\logmessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>logmessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
