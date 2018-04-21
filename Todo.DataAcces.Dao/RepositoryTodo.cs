@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -18,9 +19,33 @@ namespace Todo.DataAcces.Dao
         private readonly ILogger _log = ConfigUtil.CreateInstanceClassLog(MethodBase.GetCurrentMethod().DeclaringType);
         private IDatabase database;
 
-        public int Delete(T id)
+        public int Delete(int id)
         {
-            throw new NotImplementedException();
+            _log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+            database = new SqlServerDatabase();
+       
+            try
+            {
+                using (IDbConnection connection = database.CreateOpenConnection())
+                {
+                    var sqlCommand = "DELETE FROM TASKS WHERE Id = @IDTarea";
+                    using (IDbCommand command = database.CreateCommand(sqlCommand, connection))
+                    {
+                        database.AddParameter(command, "@IDTarea", id);
+                        return (Int32)command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+                _log.Error(e.Message + e.StackTrace);
+                throw new TodoDaoException("Error delete tarea: ", e.InnerException);
+            }
+            catch (Exception e)
+            {
+                _log.Error(e.Message + e.StackTrace);
+                throw new TodoDaoException("Error delete tarea: ", e.InnerException);
+            }
         }
 
         public List<T> GetAll()
@@ -53,6 +78,11 @@ namespace Todo.DataAcces.Dao
                     }
                     return (T)Convert.ChangeType(todo, typeof(T));
                 }
+            }
+            catch (SqlException e)
+            {
+                _log.Error(e.Message + e.StackTrace);
+                throw new TodoDaoException("Error insert tarea: ", e.InnerException);
             }
             catch (Exception e)
             {

@@ -8,6 +8,6 @@ namespace Todo.DataAcces.Dao
 {
     public interface IDeleteDao<T>
     {
-        int Delete(T id);
+        int Delete(int id);
     }
 }

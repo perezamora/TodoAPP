@@ -37,7 +37,16 @@ namespace Todo.Business.Logic
 
         public int DeleteById(int id)
         {
-            throw new NotImplementedException();
+            tareaRepository = new RepositoryTodo<Tarea>();
+            try
+            {
+                return tareaRepository.Delete(id);
+            }
+            catch (TodoDaoException e)
+            {
+                log.Error(e.Message + e.StackTrace);
+                throw new TodoBLException("Error metodo Add ", e.InnerException);
+            }
         }
 
         public List<Tarea> GetAll()
