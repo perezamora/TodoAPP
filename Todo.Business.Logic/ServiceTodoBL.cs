@@ -13,16 +13,22 @@ using Todo.DataAcces.Dao.Errors;
 
 namespace Todo.Business.Logic
 {
-    public class TodoBL : IServiceTodoBL
+    public class ServiceTodoBL : IServiceTodoBL
     {
 
         private readonly ILogger log = ConfigUtil.CreateInstanceClassLog(MethodBase.GetCurrentMethod().DeclaringType);
         private IRepositoryTodo<Tarea> tareaRepository;
 
+        // Inyectamos el repository por el constructor
+        public ServiceTodoBL(IRepositoryTodo<Tarea> repo)
+        {
+            // tareaRepository = new RepositoryTodo<Tarea>();
+            tareaRepository = repo;
+        }
+
         public Tarea Add(Tarea todo)
         {
             log.Debug(todo.ToString());
-            tareaRepository = new RepositoryTodo<Tarea>();
             try
             {
                 todo.Guid = Guid.NewGuid().ToString();
@@ -37,7 +43,6 @@ namespace Todo.Business.Logic
 
         public int DeleteById(int id)
         {
-            tareaRepository = new RepositoryTodo<Tarea>();
             try
             {
                 return tareaRepository.Delete(id);
@@ -51,7 +56,6 @@ namespace Todo.Business.Logic
 
         public List<Tarea> GetAll()
         {
-            tareaRepository = new RepositoryTodo<Tarea>();
             try
             {
                 return tareaRepository.GetAll();
@@ -65,7 +69,6 @@ namespace Todo.Business.Logic
 
         public Tarea GetById(int id)
         {
-            tareaRepository = new RepositoryTodo<Tarea>();
             try
             {
                 return tareaRepository.SelectById(id);
@@ -79,7 +82,6 @@ namespace Todo.Business.Logic
 
         public Tarea Update(int id, Tarea todo)
         {
-            tareaRepository = new RepositoryTodo<Tarea>();
             try
             {
                 return tareaRepository.Update(id, todo);
