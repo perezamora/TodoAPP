@@ -120,10 +120,6 @@
       <Project>{8bac5146-6ae6-4bd2-a3b1-2c57e2312a32}</Project>
       <Name>Todo.Common.Logic</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Todo.DataAcces.Dao\Todo.DataAcces.Dao.csproj">
-      <Project>{0F7C63C2-D1B1-4A7B-BDBF-58761EA998DD}</Project>
-      <Name>Todo.DataAcces.Dao</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

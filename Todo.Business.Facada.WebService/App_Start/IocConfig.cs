@@ -8,7 +8,6 @@ using System.Web;
 using System.Web.Http;
 using Todo.Autofac.Configuration;
 using Todo.Business.Logic;
-using Todo.DataAcces.Dao;
 
 namespace Todo.Business.Facada.WebService.App_Start
 {
@@ -18,15 +17,21 @@ namespace Todo.Business.Facada.WebService.App_Start
         {
             var builder = new ContainerBuilder();
 
-            // register 
+            // register assemblies en ejecucion
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
-            builder.RegisterType<ServiceTodoBL>().As<IServiceTodoBL>().InstancePerRequest();
 
+            builder.RegisterType<ServiceTodoBL>()
+                .As<IServiceTodoBL>()
+                .InstancePerRequest();
+
+            builder.RegisterModule(new CommonModule());
+
+            /*
             builder.RegisterGeneric(typeof(RepositoryTodo<>))
                .As(typeof(IRepositoryTodo<>))
                .InstancePerRequest();
 
-            builder.RegisterType<SqlServerDatabase>().As<IDatabase>().InstancePerRequest();
+            builder.RegisterType<SqlServerDatabase>().As<IDatabase>().InstancePerRequest();*/
 
             // construir container
             var container = builder.Build();

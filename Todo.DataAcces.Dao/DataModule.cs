@@ -4,11 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Todo.DataAcces.Dao;
 
-namespace Todo.Autofac.Configuration
+namespace Todo.DataAcces.Dao
 {
-    public class CommonModule : Module
+    public class DataModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
