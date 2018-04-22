@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,18 +11,21 @@ namespace Todo.Common.Logic.Model
     public class Tarea
     {
         #region Attributes
-        private int id;
-        private string guid;
-        private string title;
-        private string comment;
-        private DateTime dateCreate;
-        private DateTime dateFinal;
-        private DateTime dateUpdate;
+        [Key]
+        [Column(Order=0)]
+        public int Id { get; set; }
+        public string Guid { get; set; }
+        public string Title { get; set; }
+        public string Comment { get; set; }
+        public DateTime DateCreate { get; set; }
+        public DateTime DateFinal { get; set; }
+        public DateTime DateUpdate { get; set; }
         #endregion
 
         #region Metodos
         public Tarea() { }
 
+        /*
         public Tarea(int id, string guid, string title, string comment, DateTime dateCreate, DateTime dateFinal, DateTime dateUpdate)
         {
             this.Id = id;
@@ -30,21 +35,22 @@ namespace Todo.Common.Logic.Model
             this.dateCreate = dateCreate;
             this.dateFinal = dateFinal;
             this.dateUpdate = dateUpdate;
-        }
+        }*/
         #endregion
 
         #region Propiedades
+        /*
         public int Id { get => id; set => id = value; }
         public string Guid { get => guid; set => guid = value; }
         public string Title { get => title; set => title = value; }
         public string Comment { get => comment; set => comment = value; }
         public DateTime DateCreate { get => dateCreate; set => dateCreate = value; }
         public DateTime DateFinal { get => dateFinal; set => dateFinal = value; }
-        public DateTime DateUpdate { get => dateUpdate; set => dateUpdate = value; }
+        public DateTime DateUpdate { get => dateUpdate; set => dateUpdate = value; }*/
 
         public override String ToString() => string.Format("{0};{1};{2};{3};{4};{5};{6};",
-               this.id, this.guid, this.title, this.comment, this.dateCreate, this.dateFinal, this.dateUpdate);
-
+               this.Id, this.Guid, this.Title, this.Comment, this.DateCreate, this.DateFinal, this.DateUpdate);
+        /*
         public override bool Equals(object obj)
         {
             var task = obj as Tarea;
@@ -83,7 +89,7 @@ namespace Todo.Common.Logic.Model
             hashCode = hashCode * -1521134295 + DateFinal.GetHashCode();
             hashCode = hashCode * -1521134295 + DateUpdate.GetHashCode();
             return hashCode;
-        }
+        }*/
         #endregion
 
     }

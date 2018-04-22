@@ -73,6 +73,7 @@
     <Compile Include="Logger\ALog4netLogger.cs" />
     <Compile Include="Logger\ILogger.cs" />
     <Compile Include="Model\Tarea.cs" />
+    <Compile Include="Model\TareaContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\ConfigRes.Designer.cs">
       <AutoGen>True</AutoGen>

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -30,6 +29,20 @@ namespace Todo.DataAcces.Dao
         {
             _log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
+            using (var context = new TareaContext())
+            {
+                var todo = context.Tareas
+                .Where(tarea => tarea.Id == id)
+                .FirstOrDefault();
+
+                context.Tareas.Remove(todo);
+
+                context.SaveChanges();
+                return 1;
+            }
+
+
+            /*
             try
             {
                 using (IDbConnection connection = database.CreateOpenConnection())
@@ -51,13 +64,23 @@ namespace Todo.DataAcces.Dao
             {
                 _log.Error(e.Message + e.StackTrace);
                 throw new TodoDaoException(Resources.logmessages.errordeleteDao, e.InnerException);
-            }
+            }*/
         }
 
         public List<T> GetAll()
         {
             _log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
+            using (var context = new TareaContext())
+            {
+                var tareas = from todo in context.Tareas
+                             select todo;
+
+                var lista = tareas.ToList<Tarea>();
+                return (List<T>)Convert.ChangeType(lista, typeof(List<T>));
+            }
+
+            /*
             try
             {
                 using (IDbConnection connection = database.CreateOpenConnection())
@@ -96,7 +119,7 @@ namespace Todo.DataAcces.Dao
             {
                 _log.Error(e.Message + e.StackTrace);
                 throw new TodoDaoException(Resources.logmessages.errorgetallDao, e.InnerException);
-            }
+            }*/
         }
 
         public T Insert(T item)
@@ -104,6 +127,15 @@ namespace Todo.DataAcces.Dao
             _log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
             var todo = item as Tarea;
 
+            using (var context = new TareaContext())
+            {
+                context.Tareas.Add(todo);
+                context.SaveChanges();
+
+                return (T)Convert.ChangeType(todo, typeof(T));
+            }
+
+            /*
             try
             {
                 using (IDbConnection connection = database.CreateOpenConnection())
@@ -154,7 +186,7 @@ namespace Todo.DataAcces.Dao
             {
                 _log.Error(e.Message + e.StackTrace);
                 throw new TodoDaoException(Resources.logmessages.errorinsertDao, e.InnerException);
-            }
+            }*/
 
         }
 
@@ -162,6 +194,16 @@ namespace Todo.DataAcces.Dao
         {
             _log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
+            using (var context = new TareaContext())
+            {
+                var todo = context.Tareas
+                .Where(tarea => tarea.Id == id)
+                .FirstOrDefault();
+
+                return (T)Convert.ChangeType(todo, typeof(T));
+            }
+
+            /*
             try
             {
                 using (IDbConnection connection = database.CreateOpenConnection())
@@ -199,7 +241,7 @@ namespace Todo.DataAcces.Dao
             {
                 _log.Error(e.Message + e.StackTrace);
                 throw new TodoDaoException(Resources.logmessages.errorselectDao, e.InnerException);
-            }
+            }*/
         }
 
         public T Update(int id, T item)
@@ -207,6 +249,20 @@ namespace Todo.DataAcces.Dao
             _log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
             var todo = item as Tarea;
 
+            using (var context = new TareaContext())
+            {
+                var tt = context.Tareas
+                            .Where(tarea => tarea.Id == id)
+                            .FirstOrDefault();
+                tt.Title = todo.Title;
+                tt.Comment = todo.Comment;
+                tt.DateUpdate = DateTime.Now;
+
+                context.SaveChanges();
+                return (T)Convert.ChangeType(tt, typeof(T));
+            }
+
+            /*
             try
             {
                 var tareaUpdate = SelectById(id) as Tarea;
@@ -261,7 +317,7 @@ namespace Todo.DataAcces.Dao
             {
                 _log.Error(e.Message + e.StackTrace);
                 throw new TodoDaoException(Resources.logmessages.errorupdateDao, e.InnerException);
-            }
+            }*/
         }
         #endregion
     }
