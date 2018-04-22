@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web.Http;
+using Todo.Business.Facada.WebService.App_Start;
 
 namespace Todo.Business.Facada.WebService
 {
@@ -14,6 +15,8 @@ namespace Todo.Business.Facada.WebService
 
             log4net.Config.XmlConfigurator.Configure();
             //log4net.Config.XmlConfigurator.Configure(new FileInfo("log4net.config"));
+
+            IocConfig.Configure();
 
             // Rutas de API web
             config.MapHttpAttributeRoutes();

@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Autofac;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Reflection;
 using System.Web.Http;
+using Todo.Autofac.Configuration;
 using Todo.Business.Logic;
 using Todo.Business.Logic.Errors;
 using Todo.Common.Logic.Logger;
@@ -15,12 +17,14 @@ namespace Todo.Business.Facada.WebService.Controllers
 {
     public class TodoController : ApiController
     {
-        private readonly IServiceTodoBL _todoBL;
+        
         private readonly static ILogger _log = ConfigUtil.CreateInstanceClassLog(MethodBase.GetCurrentMethod().DeclaringType);
+        private readonly IServiceTodoBL _todoBL;
 
-        public TodoController()
+        public TodoController(IServiceTodoBL todoBL)
         {
-            _todoBL = new TodoBL();
+            //_todoBL = new ServiceTodoBL();
+            _todoBL = todoBL;
         }
 
         [HttpGet()]

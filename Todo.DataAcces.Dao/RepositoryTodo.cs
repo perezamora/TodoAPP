@@ -19,11 +19,16 @@ namespace Todo.DataAcces.Dao
         private readonly ILogger _log = ConfigUtil.CreateInstanceClassLog(MethodBase.GetCurrentMethod().DeclaringType);
         private IDatabase database;
 
+        public RepositoryTodo(IDatabase dba)
+        {
+            database = dba;
+        }
+
+
         #region Metodos
         public int Delete(int id)
         {
             _log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
-            database = new SqlServerDatabase();
 
             try
             {
@@ -52,7 +57,6 @@ namespace Todo.DataAcces.Dao
         public List<T> GetAll()
         {
             _log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
-            database = new SqlServerDatabase();
 
             try
             {
@@ -98,7 +102,6 @@ namespace Todo.DataAcces.Dao
         public T Insert(T item)
         {
             _log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
-            database = new SqlServerDatabase();
             var todo = item as Tarea;
 
             try
@@ -158,7 +161,6 @@ namespace Todo.DataAcces.Dao
         public T SelectById(int id)
         {
             _log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
-            database = new SqlServerDatabase();
 
             try
             {
@@ -203,7 +205,6 @@ namespace Todo.DataAcces.Dao
         public T Update(int id, T item)
         {
             _log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
-            database = new SqlServerDatabase();
             var todo = item as Tarea;
 
             try
