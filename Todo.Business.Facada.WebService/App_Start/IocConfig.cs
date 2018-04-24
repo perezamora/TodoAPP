@@ -26,13 +26,6 @@ namespace Todo.Business.Facada.WebService.App_Start
 
             builder.RegisterModule(new CommonModule());
 
-            /*
-            builder.RegisterGeneric(typeof(RepositoryTodo<>))
-               .As(typeof(IRepositoryTodo<>))
-               .InstancePerRequest();
-
-            builder.RegisterType<SqlServerDatabase>().As<IDatabase>().InstancePerRequest();*/
-
             // construir container
             var container = builder.Build();
             var resolver = new AutofacWebApiDependencyResolver(container);

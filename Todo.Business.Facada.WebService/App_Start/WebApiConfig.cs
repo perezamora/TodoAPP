@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Dispatcher;
 using Todo.Business.Facada.WebService.App_Start;
 
 namespace Todo.Business.Facada.WebService
@@ -22,10 +23,18 @@ namespace Todo.Business.Facada.WebService
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
-                name: "DefaultApi",
+                name: "ApiV1",
                 routeTemplate: "api/{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            config.Routes.MapHttpRoute(
+                name: "ApiV2",
+                routeTemplate: "api/{controller}/{action}/{id}",
+                defaults: new { id = RouteParameter.Optional }
+            );
+
+            config.Services.Replace(typeof(IHttpControllerSelector), new CustomControllerSelector((config)));
         }
     }
 }

@@ -16,7 +16,9 @@ namespace Todo.Autofac.Configuration
                .As(typeof(IRepositoryTodo<>))
                .InstancePerRequest();
 
-            builder.RegisterType<SqlServerDatabase>().As<IDatabase>().InstancePerRequest();
+            builder.RegisterType<SqlServerDatabase>()
+                .As<IDatabase>()
+                .InstancePerRequest();
 
             base.Load(builder);
         }

@@ -1,12 +1,10 @@
-﻿using Autofac;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Reflection;
 using System.Web.Http;
-using Todo.Autofac.Configuration;
 using Todo.Business.Logic;
 using Todo.Business.Logic.Errors;
 using Todo.Common.Logic.Logger;
@@ -15,13 +13,12 @@ using Todo.Common.Logic.Util;
 
 namespace Todo.Business.Facada.WebService.Controllers
 {
-    public class TodoController : ApiController
+    public class TodoV2Controller : ApiController
     {
-        
         private readonly static ILogger _log = ConfigUtil.CreateInstanceClassLog(MethodBase.GetCurrentMethod().DeclaringType);
         private readonly IServiceTodoBL _todoBL;
 
-        public TodoController(IServiceTodoBL todoBL)
+        public TodoV2Controller(IServiceTodoBL todoBL)
         {
             //_todoBL = new ServiceTodoBL();
             _todoBL = todoBL;
@@ -36,7 +33,7 @@ namespace Todo.Business.Facada.WebService.Controllers
         public IHttpActionResult ReadTodo(int id)
         {
             try
-            {             
+            {
                 var todo = _todoBL.GetById(id);
                 return Ok(todo);
             }
@@ -75,7 +72,7 @@ namespace Todo.Business.Facada.WebService.Controllers
         public IHttpActionResult AddTodo(Tarea todo)
         {
             try
-            {           
+            {
                 return Ok(_todoBL.Add(todo));
             }
             catch (TodoBLException ex)
@@ -115,7 +112,7 @@ namespace Todo.Business.Facada.WebService.Controllers
         public IHttpActionResult UpdateTodo(int id, Tarea todo)
         {
             try
-            {             
+            {
                 return Ok(_todoBL.Update(id, todo));
             }
             catch (TodoBLException ex)
@@ -124,6 +121,5 @@ namespace Todo.Business.Facada.WebService.Controllers
                 return InternalServerError();
             }
         }
-
     }
 }
